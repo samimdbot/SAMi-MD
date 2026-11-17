@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Sami md · Pairing</title>
+  <script>
+    const CONFIG = {
+      brandName: "Sami md",
+      bannerImageUrl: "https://i.postimg.cc/vZZfnyH1/IMG-20260703-WA0000.jpg",
+      ownerNumber: "923261154942",
+      ownerName: "Sami",
+      channelLink: "https://whatsapp.com/channel/0029Vb9nIak5Ui2flkOa4k2f",
+      backendUrl: "https://web-production-4abfe.up.railway.app"
+    };
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #0b0d10;
+      color: #eef2f6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1.25rem 1rem 2.5rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 30% 10%, rgba(45, 140, 255, 0.08) 0%, transparent 60%),
+                  radial-gradient(circle at 90% 80%, rgba(0, 200, 150, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app-wrapper {
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* HEADER */
+    .brand-header {
+      text-align: center;
+      padding: 0.5rem 0 0.25rem;
+    }
+
+    .brand-name {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #ffffff 0%, #b0c8ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 20px rgba(0, 120, 255, 0.2);
+      margin-bottom: 0.3rem;
+    }
+
+    .owner-line {
+      font-size: 0.9rem;
+      color: #8f9bb3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      margin-top: 0.15rem;
+    }
+
+    .owner-line span {
+      color: #cad5e6;
+      font-weight: 500;
+    }
+
+    .channel-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #1a1f2b;
+      border: 1px solid #2d3748;
+      color: #dfe7f5;
+      padding: 0.65rem 1.2rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      margin: 0.5rem auto 0;
+      width: fit-content;
+      backdrop-filter: blur(4px);
+    }
+
+    .channel-btn:hover {
+      background: #232b3a;
+      border-color: #4a5a72;
+      color: #ffffff;
+    }
+
+    .channel-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* STATUS */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: #9aa7bb;
+      padding: 0.25rem 1rem;
+      background: #12161d;
+      border-radius: 100px;
+      border: 1px solid #1f2633;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #6b7a8f;
+      transition: background 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .status-dot.online {
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+    }
+
+    .status-dot.offline {
+      background: #ef4444;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+    }
+
+    /* STATS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+    }
+
+    .stat-card {
+      background: #12161d;
+      border: 1px solid #1f2633;
+      border-radius: 16px;
+      padding: 0.9rem 0.75rem;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #7f8fa4;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #f0f4fa;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    /* PAIR CARD */
+    .pair-card {
+      background: #12161d;
+      border: 1px solid #1f2633;
+      border-radius: 24px;
+      padding: 1.5rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .pair-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #e6edf6;
+      text-align: center;
+      letter-spacing: -0.01em;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .country-code {
+      width: 72px;
+      flex-shrink: 0;
+      background: #0c0f14;
+      border: 1px solid #28313e;
+      border-radius: 14px;
+      padding: 0.85rem 0.5rem;
+      color: #eef2f6;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -moz-appearance: textfield;
+    }
+
+    .country-code:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .phone-input {
+      flex: 1;
+      background: #0c0f14;
+      border: 1px solid #28313e;
+      border-radius: 14px;
+      padding: 0.85rem 1rem;
+      color: #eef2f6;
+      font-size: 1rem;
+      font-weight: 500;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      min-width: 0;
+    }
+
+    .phone-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .phone-input::placeholder {
+      color: #5a6a80;
+      font-weight: 400;
+    }
+
+    .pair-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #2563eb, #1e4fcf);
+      border: none;
+      border-radius: 14px;
+      padding: 0.95rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      letter-spacing: -0.01em;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+    }
+
+    .pair-btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, #3b7bf6, #2563eb);
+      transform: scale(1.01);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+    }
+
+    .pair-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* CODE AREA */
+    .code-area {
+      margin-top: 0.25rem;
+      background: #0c0f14;
+      border: 1px solid #28313e;
+      border-radius: 18px;
+      padding: 1.25rem 1rem;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .code-area.visible { display: flex; }
+
+    .code-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #8f9bb3;
+    }
+
+    .code-value {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #ffffff;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      text-shadow: 0 2px 20px rgba(59, 130, 246, 0.3);
+      line-height: 1.2;
+      word-break: break-all;
+      text-align: center;
+      transition: opacity 0.3s;
+    }
+
+    .code-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .countdown {
+      font-size: 0.9rem;
+      color: #8f9bb3;
+      background: #161c26;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      border: 1px solid #1f2a38;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown span {
+      color: #f0f4fa;
+      font-weight: 600;
+    }
+
+    .copy-btn {
+      background: #1d2532;
+      border: 1px solid #2d3a4b;
+      color: #d3deee;
+      padding: 0.4rem 1.1rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .copy-btn:hover {
+      background: #2a3444;
+      border-color: #4a5f7a;
+      color: white;
+    }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: calc(100% - 32px);
+      max-width: 400px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: #1b212c;
+      border: 1px solid #2d3a4b;
+      border-radius: 14px;
+      padding: 0.9rem 1.1rem;
+      color: #eef2f6;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      animation: toastSlide 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+      pointer-events: auto;
+      backdrop-filter: blur(12px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .toast.error { border-color: #7f2a2a; background: #201518; }
+    .toast.success { border-color: #1b5e3a; background: #13201a; }
+    .toast svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .toast.error svg { fill: #f87171; }
+    .toast.success svg { fill: #34d399; }
+    .toast.info svg { fill: #60a5fa; }
+    .toast-message { flex: 1; word-break: break-word; }
+
+    @keyframes toastSlide {
+      0% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .hidden { display: none !important; }
+
+    @supports (padding: max(0px)) {
+      body {
+        padding-top: max(1.25rem, env(safe-area-inset-top));
+        padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="app-wrapper">
+
+    <header class="brand-header">
+      <h1 class="brand-name" id="brandNameDisplay">Sami md</h1>
+      <div class="owner-line">
+        <span>Owner</span> <span id="ownerNameDisplay">Sami</span>
+      </div>
+      <a href="#" class="channel-btn" id="channelLink" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        Join Channel
+      </a>
+    </header>
+
+    <div class="status-bar">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">Checking...</span>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Users</div>
+        <div class="stat-value" id="statTotalUsers">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Sessions</div>
+        <div class="stat-value" id="statActiveSessions">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">New Today</div>
+        <div class="stat-value" id="statDailyNew">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Paired</div>
+        <div class="stat-value" id="statTotalPaired">—</div>
+      </div>
+    </div>
+
+    <div class="pair-card">
+      <div class="pair-title">Pair your WhatsApp</div>
+
+      <div class="input-group">
+        <input type="tel" class="country-code" id="countryCode" value="92" placeholder="92" maxlength="5" inputmode="numeric" aria-label="Country code">
+        <input type="tel" class="phone-input" id="phoneNumber" placeholder="Phone number" inputmode="numeric" aria-label="Phone number">
+      </div>
+
+      <button class="pair-btn" id="pairBtn">
+        <span id="pairBtnText">Get Pairing Code</span>
+      </button>
+
+      <div class="code-area" id="codeArea">
+        <div class="code-label">Your Pairing Code</div>
+        <div class="code-value" id="codeValue">----</div>
+        <div class="code-meta">
+          <div class="countdown" id="countdown">Expires in <span>--</span>s</div>
+          <button class="copy-btn" id="copyBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const cfg = window.CONFIG || {};
+
+      const brandNameEl = document.getElementById('brandNameDisplay');
+      const ownerNameEl = document.getElementById('ownerNameDisplay');
+      const channelLinkEl = document.getElementById('channelLink');
+      const statusDot = document.getElementById('statusDot');
+      const statusText = document.getElementById('statusText');
+      const statTotalUsers = document.getElementById('statTotalUsers');
+      const statActiveSessions = document.getElementById('statActiveSessions');
+      const statDailyNew = document.getElementById('statDailyNew');
+      const statTotalPaired = document.getElementById('statTotalPaired');
+      const countryCodeInput = document.getElementById('countryCode');
+      const phoneNumberInput = document.getElementById('phoneNumber');
+      const pairBtn = document.getElementById('pairBtn');
+      const pairBtnText = document.getElementById('pairBtnText');
+      const codeArea = document.getElementById('codeArea');
+      const codeValue = document.getElementById('codeValue');
+      const countdownEl = document.getElementById('countdown');
+      const copyBtn = document.getElementById('copyBtn');
+      const toastContainer = document.getElementById('toastContainer');
+
+      let countdownInterval = null;
+      let currentCode = null;
+      let isPairing = false;
+
+      function showToast(message, type = 'info', duration = 4000) {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        const icons = {
+          error: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+          success: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+          info: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>'
+        };
+        toast.innerHTML = `${icons[type] || icons.info}<span class="toast-message">${message}</span>`;
+        toastContainer.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(-10px)';
+          setTimeout(() => toast.remove(), 200);
+        }, duration);
+      }
+
+      function setStatus(online) {
+        if (online) {
+          statusDot.className = 'status-dot online';
+          statusText.textContent = 'Online';
+        } else {
+          statusDot.className = 'status-dot offline';
+          statusText.textContent = 'Offline';
+        }
+      }
+
+      function formatCode(raw) {
+        if (!raw || raw.length < 8) return raw || '----';
+        return raw.slice(0, 4) + '-' + raw.slice(4, 8);
+      }
+
+      function clearCountdown() {
+        if (countdownInterval) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+        }
+      }
+
+      function startCountdown(expiresInSeconds) {
+        clearCountdown();
+        const expiresAt = Date.now() + (expiresInSeconds * 1000);
+
+        function tick() {
+          const remaining = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000));
+          const span = countdownEl.querySelector('span');
+          if (span) span.textContent = remaining;
+
+          if (remaining <= 0) {
+            clearCountdown();
+            countdownEl.innerHTML = 'Code expired';
+            codeValue.style.opacity = '0.5';
+            codeValue.style.textShadow = 'none';
+          }
+        }
+
+        tick();
+        countdownInterval = setInterval(tick, 1000);
+      }
+
+      async function fetchHealth() {
+        try {
+          const res = await fetch(`${cfg.backendUrl}/api/health`);
+          if (!res.ok) throw new Error('Health check failed');
+          const data = await res.json();
+          setStatus(data.status === 'ok');
+        } catch (e) {
+          setStatus(false);
+        }
+      }
+
+      async function fetchStats() {
+        try {
+          const res = await fetch(`${cfg.backendUrl}/api/stats`);
+          if (!res.ok) throw new Error('Stats fetch failed');
+          const data = await res.json();
+          if (data.ok) {
+            if (data.totalUsers !== undefined) statTotalUsers.textContent = data.totalUsers;
+            if (data.activeSessions !== undefined) statActiveSessions.textContent = data.activeSessions;
+            if (data.dailyNew !== undefined) statDailyNew.textContent = data.dailyNew;
+            if (data.totalPaired !== undefined) statTotalPaired.textContent = data.totalPaired;
+          }
+        } catch (e) {}
+      }
+
+      async function requestPairing() {
+        if (isPairing) return;
+
+        const cc = (countryCodeInput.value || '').replace(/\D/g, '');
+        const num = (phoneNumberInput.value || '').replace(/\D/g, '');
+        const fullNumber = cc + num;
+
+        if (!fullNumber || fullNumber.length < 10 || fullNumber.length > 15) {
+          showToast('Please enter a valid phone number (10–15 digits).', 'error');
+          return;
+        }
+
+        const brand = {
+          name: cfg.brandName || '',
+          banner: cfg.bannerImageUrl || '',
+          owner: cfg.ownerNumber || '',
+          ownerName: cfg.ownerName || '',
+          channel: cfg.channelLink || ''
+        };
+
+        isPairing = true;
+        pairBtn.disabled = true;
+        pairBtnText.textContent = 'Generating...';
+        codeValue.style.opacity = '1';
+        codeValue.style.textShadow = '0 2px 20px rgba(59, 130, 246, 0.3)';
+
+        try {
+          const res = await fetch(`${cfg.backendUrl}/api/pair`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ number: fullNumber, brand })
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            const msg = data.error || `Request failed (${res.status})`;
+            showToast(msg, 'error');
+            return;
+          }
+
+          if (data.code) {
+            currentCode = data.code;
+            const expiresIn = data.expiresIn || 120;
+            codeValue.textContent = formatCode(data.code);
+            codeArea.classList.add('visible');
+            startCountdown(expiresIn);
+            showToast('Pairing code generated!', 'success', 3000);
+          } else {
+            showToast('Unexpected response from server.', 'error');
+          }
+        } catch (err) {
+          showToast('Could not reach server, please try again.', 'error');
+        } finally {
+          isPairing = false;
+          pairBtn.disabled = false;
+          pairBtnText.textContent = 'Get Pairing Code';
+        }
+      }
+
+      function copyCode() {
+        if (!currentCode) return;
+        const formatted = formatCode(currentCode);
+        navigator.clipboard.writeText(formatted).then(() => {
+          showToast('Code copied to clipboard!', 'success', 2000);
+        }).catch(() => {
+          const ta = document.createElement('textarea');
+          ta.value = formatted;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); showToast('Code copied!', 'success', 2000); }
+          catch (e) { showToast('Failed to copy, please copy manually.', 'error'); }
+          ta.remove();
+        });
+      }
+
+      function init() {
+        if (cfg.brandName) brandNameEl.textContent = cfg.brandName;
+        if (cfg.ownerName) ownerNameEl.textContent = cfg.ownerName;
+        if (cfg.channelLink) {
+          channelLinkEl.href = cfg.channelLink;
+        } else {
+          channelLinkEl.style.display = 'none';
+        }
+        if (cfg.brandName) document.title = `${cfg.brandName} · Pairing`;
+
+        fetchHealth();
+        fetchStats();
+        setInterval(fetchStats, 30000);
+        setInterval(fetchHealth, 20000);
+
+        pairBtn.addEventListener('click', requestPairing);
+
+        [countryCodeInput, phoneNumberInput].forEach(el => {
+          el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              requestPairing();
+            }
+          });
+        });
+
+        copyBtn.addEventListener('click', copyCode);
+
+        [countryCodeInput, phoneNumberInput].forEach(el => {
+          el.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+          });
+        });
+      }
+
+      init();
+    })();
+  </script>
+</body>
+  </html>
